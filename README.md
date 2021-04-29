@@ -104,3 +104,31 @@ Same as in the section detailing `docker run` you can launch the consumer/produc
 Very useful tool for simulating message circulation in your RabbitMQ setup.
 
 http://tryrabbitmq.com/
+
+```
+version: "3"
+services:
+  rabbit1:
+    image: rabbitmq:latest
+    hostname: rabbit1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "secret string"
+      RABBITMQ_NODENAME: rabbit1
+    volumes:
+      - "./plugins.erl:/etc/rabbitmq/enabled_plugins"
+    ports:
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "15671:15671"
+      - "8080:15672"
+      - "25672:25672"
+      - "1883:1883"
+      - "61613:61613"
+
+```
+
+# plugins.erl
+```
+[rabbitmq_management, rabbitmq_mqtt, rabbitmq_stomp].
+```
